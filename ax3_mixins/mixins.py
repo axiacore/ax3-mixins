@@ -4,10 +4,12 @@ from django.http import HttpResponseBadRequest, Http404
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
+from .utils import is_ajax
+
 
 class AjaxRequestMixin:
     def dispatch(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if not is_ajax(request):
             return HttpResponseBadRequest()
 
         return super().dispatch(request, *args, **kwargs)
