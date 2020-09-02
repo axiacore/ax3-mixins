@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 class AjaxRequestMixin:
     def dispatch(self, request, *args, **kwargs):
-        if not request.is_ajax():
+        if request.META.get('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest':
             return HttpResponseBadRequest()
 
         return super().dispatch(request, *args, **kwargs)
